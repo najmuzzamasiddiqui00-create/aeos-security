@@ -1,0 +1,31 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "aeos-security"
+version = "2.4.0"
+description = "Autonomous Code Security, License Compliance & Auto-Patching Engine"
+readme = "README.md"
+requires-python = ">=3.9"
+authors = [
+  { name = "American Swipes Ltd", email = "najmuzzamasiddiqui00@gmail.com" }
+]
+classifiers = [
+  "Development Status :: 5 - Production/Stable",
+  "Intended Audience :: Developers",
+  "Topic :: Security",
+  "Topic :: Software Development :: Quality Assurance",
+  "License :: OSI Approved :: MIT License",
+  "Programming Language :: Python :: 3",
+]
+dependencies = [
+  "requests>=2.28.0",
+  "fastapi>=0.100.0",
+  "uvicorn>=0.22.0",
+  "pydantic>=2.0.0"
+]
+
+[project.scripts]
+aeos = "aeos_cli:main"
+aeos-mcp = "aeos_distribution.mcp_server.server:main"

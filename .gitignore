@@ -1,0 +1,27 @@
+# Environment secrets and credentials
+.env
+.env.*
+*.env
+*.env.local
+.env.vault
+
+# SQLite Databases & Financial Ledgers
+*.sqlite
+*.sqlite3
+*.db
+FINANCIAL_LEDGER.sqlite
+
+# System and runtime artifacts
+PUBLIC_URL.txt
+cloudflared.exe
+__pycache__/
+*.py[cod]
+*$py.class
+*.log
+
+# Test artifacts
+test_repo/
+scratch/
+tmp/
+.venv/
+venv/

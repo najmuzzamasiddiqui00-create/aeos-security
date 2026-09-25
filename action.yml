@@ -1,0 +1,57 @@
+name: 'AEOS Code Security & Compliance Guard'
+description: 'Autonomous static security scanner, secret leak detector, and auto-patching engine for GitHub repositories.'
+author: 'American Swipes Ltd'
+
+branding:
+  icon: 'shield'
+  color: 'blue'
+
+inputs:
+  target_dir:
+    description: 'Directory path to scan (defaults to repository root)'
+    required: false
+    default: '.'
+  license_key:
+    description: 'AEOS Enterprise Pro license key for unlimited zero-touch patching & compliance seal'
+    required: false
+    default: ''
+  fail_on_critical:
+    description: 'Fail the GitHub workflow run if unpatched critical vulnerabilities or leaked secrets remain'
+    required: false
+    default: 'false'
+  apply_patches:
+    description: 'Automatically apply safe dependency and configuration patches to the working tree'
+    required: false
+    default: 'true'
+
+outputs:
+  total_findings:
+    description: 'Total number of security flaws and vulnerabilities detected'
+  critical_findings:
+    description: 'Total number of critical findings'
+  patches_applied:
+    description: 'Number of automated patches applied to the codebase'
+  compliance_status:
+    description: 'Pass or Fail status'
+  security_score:
+    description: 'Institutional security rating grade (A+, A, B, C, D, F)'
+  score_numeric:
+    description: 'Numeric security health score between 0 and 100'
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.12'
+    - name: Run AEOS Security Engine
+      shell: bash
+      run: |
+        python "${{ github.action_path }}/aeos_distribution/github_action/run_action.py"
+      env:
+        INPUT_TARGET_DIR: ${{ inputs.target_dir }}
+        INPUT_LICENSE_KEY: ${{ inputs.license_key }}
+        INPUT_FAIL_ON_CRITICAL: ${{ inputs.fail_on_critical }}
+        INPUT_APPLY_PATCHES: ${{ inputs.apply_patches }}
+        GITHUB_STEP_SUMMARY: ${{ env.GITHUB_STEP_SUMMARY }}

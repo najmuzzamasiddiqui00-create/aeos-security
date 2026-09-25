@@ -1,0 +1,22 @@
+name: AEOS Security & Compliance Pipeline
+
+on:
+  push:
+    branches: [ master, main ]
+  pull_request:
+    branches: [ master, main ]
+
+jobs:
+  aeos-audit:
+    name: Run AEOS Code Security Guard
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Run AEOS Security Scanner & Auto-Patcher
+        uses: ./
+        with:
+          target_dir: '.'
+          fail_on_critical: 'false'
+          apply_patches: 'true'
